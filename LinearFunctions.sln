@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearFunctions", "LinearFunctions\LinearFunctions.csproj", "{4AFC60C7-D0AE-41F5-930E-DC86E0429BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AFC60C7-D0AE-41F5-930E-DC86E0429BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFC60C7-D0AE-41F5-930E-DC86E0429BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFC60C7-D0AE-41F5-930E-DC86E0429BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFC60C7-D0AE-41F5-930E-DC86E0429BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54824CC5-E6EE-4C79-9222-FE69599BC3B4}
+	EndGlobalSection
+EndGlobal
