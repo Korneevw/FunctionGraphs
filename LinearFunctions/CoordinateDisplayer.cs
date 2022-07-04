@@ -10,23 +10,23 @@ namespace LinearFunctions
     {
         public static void Display(Camera camera, Graphics graphics)
         {
-            if (CoordinateConverter.ConvertToGridX(camera, 0) < 0 && CoordinateConverter.ConvertToGridX(camera, camera.Width) > 0)
+            if (CoordinateConverter.CameraXToGridX(camera, 0) < 0 && CoordinateConverter.CameraXToGridX(camera, camera.Width) > 0)
             {
                 int YLineY = (int)Math.Floor(camera.GridLocation.Y);
-                while (YLineY > CoordinateConverter.ConvertToGridY(camera, camera.Height))
+                while (YLineY > CoordinateConverter.CameraYToGridY(camera, camera.Height))
                 {
-                    int YLineYCamera = CoordinateConverter.ConvertToCameraY(camera, YLineY);
-                    graphics.DrawString($"{YLineY}", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + CoordinateConverter.ConvertToCameraX(camera, 0), camera.Location.Y + YLineYCamera));
+                    int YLineYCamera = CoordinateConverter.GridYToCameraY(camera, YLineY);
+                    graphics.DrawString($"{YLineY}", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, 0), camera.Location.Y + YLineYCamera));
                     YLineY--;
                 }
             }
-            if (CoordinateConverter.ConvertToGridY(camera, 0) > 0 && CoordinateConverter.ConvertToGridY(camera, camera.Height) < 0)
+            if (CoordinateConverter.CameraYToGridY(camera, 0) > 0 && CoordinateConverter.CameraYToGridY(camera, camera.Height) < 0)
             {
                 int XLineX = (int)Math.Ceiling(camera.GridLocation.X);
-                while (XLineX < CoordinateConverter.ConvertToGridX(camera, camera.Width))
+                while (XLineX < CoordinateConverter.CameraXToGridX(camera, camera.Width))
                 {
-                    int XLineXCamera = CoordinateConverter.ConvertToCameraX(camera, XLineX);
-                    graphics.DrawString($"{XLineX}", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + XLineXCamera, camera.Location.Y + CoordinateConverter.ConvertToCameraY(camera, 0)));
+                    int XLineXCamera = CoordinateConverter.GridXToCameraX(camera, XLineX);
+                    graphics.DrawString($"{XLineX}", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + XLineXCamera, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, 0)));
                     XLineX++;
                 }
             }

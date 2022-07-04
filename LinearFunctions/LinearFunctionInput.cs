@@ -1,15 +1,15 @@
 ﻿namespace LinearFunctions
 {
-    internal class GraphInput
+    internal class LinearFunctionInput
     {
         public double K { get { return (double)KInput.Value; } }
         public double B { get { return (double)BInput.Value; } }
-        public Label KInputLabel;
-        public NumericUpDown KInput;
-        public Label BInputLabel;
-        public NumericUpDown BInput;
+        public Label KInputLabel { get; set; }
+        public NumericUpDown KInput { get; set; }
+        public Label BInputLabel { get; set; }
+        public NumericUpDown BInput { get; set; }
         public event Action? AnyValueChanged;
-        public GraphInput(Point location, Control.ControlCollection controls)
+        public LinearFunctionInput(Point location, Control.ControlCollection controls)
         {
             KInputLabel = new Label()
             {
