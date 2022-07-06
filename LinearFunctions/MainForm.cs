@@ -4,9 +4,10 @@ namespace LinearFunctions
     {
         private Camera _camera;
         private LinearFunction _linearFunction;
-        private LinearFunctionInput _graphInput;
+        private LinearFunctionInput _functionInput;
         private FunctionSelector _functionSelector;
-        private CameraLocationInput _cameraLocationInput;
+        private CameraInput _cameraLocationInput;
+        private MousePointDisplayerModeSelector _mousePointDisplayerModeSelector;
 
         private Point _mouseLocation;
         private Point? _dragMouseLocation;
@@ -19,21 +20,33 @@ namespace LinearFunctions
             GridDisplayer.Display(_camera, e.Graphics);
             LinearFunctionDisplayer.Display(_camera, _linearFunction, e.Graphics);
             CoordinateDisplayer.Display(_camera, e.Graphics);
-            //MousePointDisplayer.DisplayByX(_camera, _linearFunction, _mouseLocation.Y, e.Graphics);
-            e.Graphics.DrawLine(Pens.Black, new Point(_functionSelector.GroupBox.Right + 10, 0), new Point(_functionSelector.GroupBox.Right + 10, ClientSize.Height));
+            if (_mousePointDisplayerModeSelector.X)
+            {
+                MousePointDisplayer.DisplayByX(_camera, _linearFunction, _mouseLocation.X, e.Graphics);
+            }
+            else if (_mousePointDisplayerModeSelector.Y)
+            {
+                MousePointDisplayer.DisplayByY(_camera, _linearFunction, _mouseLocation.Y, e.Graphics);
+            }
+            else if (_mousePointDisplayerModeSelector.XY)
+            {
+                MousePointDisplayer.Display(_camera, _linearFunction, _mouseLocation, e.Graphics);
+            }
+            e.Graphics.DrawLine(Pens.Black, new Point(_functionInput.GroupBox.Right + 10, 0), new Point(_functionInput.GroupBox.Right + 10, ClientSize.Height));
             base.OnPaint(e);
         }
         public MainForm()
         {
             InitializeComponent();
             _functionSelector = new FunctionSelector(new Point(10, 10), Controls);
-            _graphInput = new LinearFunctionInput(new Point(10, _functionSelector.GroupBox.Bottom + 10), Controls);
-            _camera = new Camera(1, new Size(ClientSize.Width, ClientSize.Height), new Point(_functionSelector.GroupBox.Right + 10, 0));
-            _linearFunction = new LinearFunction(_graphInput.K, _graphInput.B);
-            _cameraLocationInput = new CameraLocationInput(new Point(10, _graphInput.BInput.Bottom), _camera, Controls);
-            _cameraLocationInput.GroupBox.Location = new Point(10, this.ClientSize.Height - _cameraLocationInput.GroupBox.ClientSize.Height - 10);
+            _functionInput = new LinearFunctionInput(new Point(10, _functionSelector.GroupBox.Bottom), Controls);
+            _functionInput.AnyValueChanged += GraphInputValueChangedHandler;
+            _camera = new Camera(1, new Size(ClientSize.Width, ClientSize.Height), new Point(_functionInput .GroupBox.Right + 10, 0));
+            _linearFunction = new LinearFunction(_functionInput.K, _functionInput.B);
+            _mousePointDisplayerModeSelector = new MousePointDisplayerModeSelector(new Point(10, _functionInput.GroupBox.Bottom), Controls);
+            _cameraLocationInput = new CameraInput(new Point(10, _functionInput.BInput.Bottom), _camera, Controls);
+            _cameraLocationInput.GroupBox.Location = new Point(10, _mousePointDisplayerModeSelector.GroupBox.Bottom);
             _cameraLocationInput.OnMove += () => this.Refresh();
-            _graphInput.AnyValueChanged += GraphInputValueChangedHandler;
             this.ClientSize = new Size(_camera.Location.X + _camera.Width, _camera.Height);
             this.MouseWheel += ResizeHandler;
             this.MouseUp += DragMovementUpHandler;
@@ -87,8 +100,8 @@ namespace LinearFunctions
         private void GraphInputValueChangedHandler()
         {
             if (_ignoreAnyValueChanged) return;
-            _linearFunction.K = _graphInput.K;
-            _linearFunction.B = _graphInput.B;
+            _linearFunction.K = _functionInput.K;
+            _linearFunction.B = _functionInput.B;
             this.Refresh();
         }
     }

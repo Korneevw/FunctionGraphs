@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinearFunctions
 {
-    internal class CameraLocationInput
+    internal class CameraInput
     {
         public double X { get { return (double)XInput.Value; } }
         public double Y { get { return (double)YInput.Value; } }
@@ -18,13 +18,13 @@ namespace LinearFunctions
         public NumericUpDown YInput;
         public Button MoveButton;
         public event Action? OnMove;
-        public CameraLocationInput(Point location, Camera camera, Control.ControlCollection controls)
+        public CameraInput(Point location, Camera camera, Control.ControlCollection controls)
         {
             Camera = camera;
             GroupBox = new GroupBox()
             {
                 Location = location,
-                Text = "Перемещение"
+                Text = "Параметры камеры"
             };
 
             XInputLabel = new Label()
@@ -61,14 +61,14 @@ namespace LinearFunctions
             };
             MoveButton.Click += OnMoveAction;
 
-            GroupBox.Size = new Size(220, 20 + XInput.Height + YInput.Height + 10 + MoveButton.Height + 20);
+            GroupBox.Size = new Size(244, 20 + XInput.Height + YInput.Height + 10 + MoveButton.Height + 20);
 
             GroupBox.Controls.AddRange(new Control[] { XInputLabel, XInput, YInputLabel, YInput, MoveButton });
             controls.Add(GroupBox);
         }
         private void OnMoveAction(object? sender, EventArgs e)
         {
-            Camera.GridLocation = new PointF((float)CoordinateConverter.CameraXToGridX(Camera, CoordinateConverter.GridXToCameraX(Camera, (double)XInput.Value) - Camera.Width / 2), (float)CoordinateConverter.CameraYToGridY(Camera, CoordinateConverter.GridYToCameraY(Camera, (double)YInput.Value) - Camera.Height / 2));
+            Camera.GridLocation = new PointF((float)((double)XInput.Value - (Camera.Width / 2 / (50 * Camera.Scale))), (float)((double)YInput.Value + (Camera.Height / 2 / (50 * Camera.Scale))));
             OnMove?.Invoke();
         }
     }

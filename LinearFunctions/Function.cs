@@ -10,7 +10,11 @@ namespace LinearFunctions
     {
         public string FormulaString { get { return Formula; } }
         protected string Formula = "";
-        public abstract double GetX(double y);
-        public abstract double GetY(double x);
+        public string RangeString { get { return Range; } }
+        protected string Range = ""; // Область значений
+        public string DomainString { get { return Domain; } }
+        protected string Domain = ""; // Область определения
+        public abstract double? GetX(double y);
+        public abstract double? GetY(double x);
     }
 }

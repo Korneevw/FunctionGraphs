@@ -10,7 +10,6 @@ namespace LinearFunctions
     {
         public GroupBox GroupBox { get; set; }
         public ComboBox Selector { get; set; }
-        public Label FunctionFormula { get; set; }
         public event Action? SelectedItemChanged;
         public FunctionSelector(Point location, Control.ControlCollection controls)
         {
@@ -24,24 +23,14 @@ namespace LinearFunctions
             Selector.SelectedIndex = 0;
             Selector.SelectedValueChanged += (s, e) => SelectedItemChanged?.Invoke();
 
-            FunctionFormula = new Label()
-            {
-                Location = new Point(10, Selector.Bottom + 10),
-                Font = new Font(Form.DefaultFont.FontFamily, 18),
-                BorderStyle = BorderStyle.FixedSingle,
-                Text = "y(x) = kx + b"
-            };
-            FunctionFormula.AutoSize = true;
-
             GroupBox = new GroupBox()
             {
                 Text = "Выбор функции",
-                Size = new Size(10 + Selector.Width + 10, 10 + Selector.Height + 10 + FunctionFormula.PreferredHeight + 10 + 10),
+                Size = new Size(244, 10 + Selector.Height + 10 + 10),
                 Location = location
             };
 
-
-            GroupBox.Controls.AddRange(new Control[] { Selector, FunctionFormula });
+            GroupBox.Controls.AddRange(new Control[] { Selector });
             controls.AddRange(new Control[] { GroupBox });
         }
     }

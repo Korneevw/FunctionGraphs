@@ -23,21 +23,16 @@
         }
         public static Point GridToCamera(Camera camera, PointF gridCoordinates)
         {
-            // To do
             return new Point(
                 (int)(Math.Abs((camera.GridLocation.X - gridCoordinates.X) * (50 * camera.Scale))),
                 (int)(Math.Abs((camera.GridLocation.Y - gridCoordinates.Y) * (50 * camera.Scale))));
         }
         public static int GridXToCameraX(Camera camera, double gridX)
         {
-            if (gridX < camera.GridLocation.X) return 0;
-            else if (gridX > (camera.GridLocation.X + camera.Width)) return camera.Width;
             return (int)Math.Abs((camera.GridLocation.X - gridX) * (50 * camera.Scale));
         }
         public static int GridYToCameraY(Camera camera, double gridY)
         {
-            if (gridY > camera.GridLocation.Y) return 0;
-            else if (gridY < CameraYToGridY(camera, camera.Height)) return camera.Height;
             return (int)Math.Abs((camera.GridLocation.Y - gridY) * (50 * camera.Scale));
         }
         public static PointF CameraToGrid(Camera camera, Point cameraCoordinates)

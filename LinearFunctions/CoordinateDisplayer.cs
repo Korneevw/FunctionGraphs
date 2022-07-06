@@ -16,9 +16,10 @@ namespace LinearFunctions
                 while (YLineY > CoordinateConverter.CameraYToGridY(camera, camera.Height))
                 {
                     int YLineYCamera = CoordinateConverter.GridYToCameraY(camera, YLineY);
-                    graphics.DrawString($"{YLineY}", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, 0), camera.Location.Y + YLineYCamera));
+                    graphics.DrawString($"{YLineY}", new Font(Form.DefaultFont.FontFamily, (int)((YLineY.ToString().Length > 5 ? 8 : 12) * camera.Scale)), Brushes.Black, new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, 0), camera.Location.Y + YLineYCamera));
                     YLineY--;
                 }
+                graphics.DrawString($"Y", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, 0) - 25, camera.Location.Y));
             }
             if (CoordinateConverter.CameraYToGridY(camera, 0) > 0 && CoordinateConverter.CameraYToGridY(camera, camera.Height) < 0)
             {
@@ -26,9 +27,10 @@ namespace LinearFunctions
                 while (XLineX < CoordinateConverter.CameraXToGridX(camera, camera.Width))
                 {
                     int XLineXCamera = CoordinateConverter.GridXToCameraX(camera, XLineX);
-                    graphics.DrawString($"{XLineX}", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + XLineXCamera, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, 0)));
+                    graphics.DrawString($"{XLineX}", new Font(Form.DefaultFont.FontFamily, (int)((XLineX.ToString().Length > 5 ? 8 : 12) * camera.Scale)), Brushes.Black, new Point(camera.Location.X + XLineXCamera, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, 0)));
                     XLineX++;
                 }
+                graphics.DrawString($"X", new Font(Form.DefaultFont.FontFamily, (int)(12 * camera.Scale)), Brushes.Black, new Point(camera.Location.X + camera.Width - 20, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, 0) - 25));
             }
         }
     }

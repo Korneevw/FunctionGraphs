@@ -4,26 +4,26 @@
     {
         public static void Display(Camera camera, LinearFunction function, Graphics graphics)
         {
-            double leftSideY = function.GetY(CoordinateConverter.CameraXToGridX(camera, 0));
-            double rightSideY = function.GetY(CoordinateConverter.CameraXToGridX(camera, camera.Width));
-            double upSideX = function.GetX(CoordinateConverter.CameraYToGridY(camera, 0));
-            double downSideX = function.GetX(CoordinateConverter.CameraYToGridY(camera, camera.Height));
+            double? leftSideY = function.GetY(CoordinateConverter.CameraXToGridX(camera, 0));
+            double? rightSideY = function.GetY(CoordinateConverter.CameraXToGridX(camera, camera.Width));
+            double? upSideX = function.GetX(CoordinateConverter.CameraYToGridY(camera, 0));
+            double? downSideX = function.GetX(CoordinateConverter.CameraYToGridY(camera, camera.Height));
             List<Point> points = new List<Point>();
-            if (upSideX >= CoordinateConverter.CameraXToGridX(camera, 0) && upSideX <= CoordinateConverter.CameraXToGridX(camera, camera.Width))
+            if (upSideX is not null && upSideX >= CoordinateConverter.CameraXToGridX(camera, 0) && upSideX <= CoordinateConverter.CameraXToGridX(camera, camera.Width))
             {
-                points.Add(new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, upSideX), camera.Location.Y));
+                points.Add(new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, (double)upSideX), camera.Location.Y));
             }
-            if (downSideX >= CoordinateConverter.CameraXToGridX(camera, 0) && downSideX <= CoordinateConverter.CameraXToGridX(camera, camera.Width))
+            if (downSideX is not null && downSideX >= CoordinateConverter.CameraXToGridX(camera, 0) && downSideX <= CoordinateConverter.CameraXToGridX(camera, camera.Width))
             {
-                points.Add(new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, downSideX), camera.Location.Y + camera.Height));
+                points.Add(new Point(camera.Location.X + CoordinateConverter.GridXToCameraX(camera, (double)downSideX), camera.Location.Y + camera.Height));
             }
-            if (leftSideY <= CoordinateConverter.CameraYToGridY(camera, 0) && leftSideY >= CoordinateConverter.CameraYToGridY(camera, camera.Height))
+            if (leftSideY is not null && leftSideY <= CoordinateConverter.CameraYToGridY(camera, 0) && leftSideY >= CoordinateConverter.CameraYToGridY(camera, camera.Height))
             {
-                points.Add(new Point(camera.Location.X, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, leftSideY)));
+                points.Add(new Point(camera.Location.X, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, (double)leftSideY)));
             }
-            if (rightSideY <= CoordinateConverter.CameraYToGridY(camera, 0) && rightSideY >= CoordinateConverter.CameraYToGridY(camera, camera.Height))
+            if (rightSideY is not null && rightSideY <= CoordinateConverter.CameraYToGridY(camera, 0) && rightSideY >= CoordinateConverter.CameraYToGridY(camera, camera.Height))
             {
-                points.Add(new Point(camera.Location.X + camera.Width, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, rightSideY)));
+                points.Add(new Point(camera.Location.X + camera.Width, camera.Location.Y + CoordinateConverter.GridYToCameraY(camera, (double)rightSideY)));
             }
             if (points.Count == 2)
             {
